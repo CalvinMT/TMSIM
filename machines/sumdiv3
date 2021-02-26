@@ -1,0 +1,21 @@
+B
+|
+q0
+stop
+Q r w m N
+q0 | B R q4
+q0 B B - q0
+q1 | B R q2
+q1 B B - q1
+q2 | B R q3
+q2 B B R y2
+y2 | B R q2
+y2 B B - y2
+q3 | | R q4
+q3 B B R y3
+y3 | B R q3
+y3 B B - y3
+q4 | | - q1
+q4 B B R q5
+q5 | | - q0
+q5 B B - stop
