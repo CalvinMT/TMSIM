@@ -5,7 +5,7 @@
 ##			Turing Machine Simulator
 ##
 ## Description:
-##			Runs a Turing Machine using one tape and one pointer.
+##			Runs a Turing Machine using one infinite tape and one pointer.
 ##
 ## Author:
 ##			Calvin M.T. (calvinmt.com)
@@ -151,8 +151,13 @@ def runRule(currentState):
 		stepMove = rules[currentStateIndex][stepIndexMove]
 		if stepMove == MOVE_LEFT:
 			tapePointer -= 1
+			if tapePointer == -1:
+				tape.insert(0, blankCharacter)
+				tapePointer = 0
 		if stepMove == MOVE_RIGHT:
 			tapePointer += 1
+			if tapePointer == len(tape):
+				tape.append(blankCharacter)
 	if stepIndexNextState > -1:
 		nextState = rules[currentStateIndex][stepIndexNextState]
 	return nextState
