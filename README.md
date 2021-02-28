@@ -1,6 +1,21 @@
 # Turing Machine Simulator
 
-## Debug
+## Machines
+Start with the lexicon and syntax the machine will use to follow the rules and interact with the tape.
+
+- Blank character
+- Returned characters
+- Initial state
+- Final state
+- Rules syntax
+- Rules
+
+One rule per line.
+
+## Tapes
+One tape per line.
+
+## Debugging
 Use the option `-d` to display process information.
 
 `./tmsim.py -d machine_name tape_name`
