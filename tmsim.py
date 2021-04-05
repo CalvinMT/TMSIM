@@ -59,6 +59,12 @@ MOVE_RIGHT = "R"
 # ########## ########## ########## #
 
 def prepareStepIndices(syntax):
+	"""
+	Order the Turing Machine's execution of a rule depending on the given syntax.
+
+	:param syntax: list of characters
+	:return: None
+	"""
 	global stepIndexCurrentState
 	global stepIndexMove
 	global stepIndexNextState
@@ -87,6 +93,12 @@ def prepareStepIndices(syntax):
 		sys.exit("ERROR: syntax needs a current state (" + STEP_CURRENT_STATE + ") and a read (" + STEP_READ + ")")
 
 def readRules(machineFile):
+	"""
+	Read the instance of a Turing Machine file with the file pointer starting on its rules to create a list of rules.
+
+	:param machineFile: Turing Machine file instance
+	:return: list of rules
+	"""
 	rules = []
 	STATE_NORMAL = 0
 	STATE_PARENTHESIS = 1
@@ -125,6 +137,12 @@ def readRules(machineFile):
 	return rules
 
 def readTapes(tapeFile):
+	"""
+	Read the instance of a tape file to create a list of tapes and a list of their pointers.
+
+	:param tapeFile: tape file instance
+	:return: list of tapes, list of pointers
+	"""
 	pointers = []
 	tapes = []
 	for line in tapeFile:
@@ -134,6 +152,14 @@ def readTapes(tapeFile):
 	return tapes, pointers
 
 def prepareMachine(machinePath, tapePath):
+	"""
+	Read Turing Machine file and tape file to set and initialise blank character, returning characters, initial state,
+	final state, rules, pointers and tapes.
+
+	:param machinePath: Turing Machine file
+	:param tapePath: tape file
+	:return: None
+	"""
 	global blankCharacter
 	global returnedCharacters
 	global initialState
@@ -163,6 +189,12 @@ def prepareMachine(machinePath, tapePath):
 	tapeFile.close()
 
 def findStateIndices(state):
+	"""
+	Search through the list of rules for the ones for which their beginning state matches state.
+
+	:param state: beginning state
+	:return: list of rule indices
+	"""
 	result = []
 	for i in range(len(rules)):
 		if rules[i][stepIndexCurrentState][0] == state:
@@ -172,6 +204,13 @@ def findStateIndices(state):
 	return result
 
 def findStateUniqueIndex(state):
+	"""
+	Search through the list of rules for the one for which its beginning state matches current state and its reading
+	characters match currently pointed characters from each tape.
+
+	:param state: beginning state
+	:return: rule index
+	"""
 	result = -1
 	stateIndices = findStateIndices(state)
 	for i in stateIndices:
@@ -194,6 +233,13 @@ def findStateUniqueIndex(state):
 	return result
 
 def runRule(currentState):
+	"""
+	Run a single rule for which its beginning state matches current state and its read characters match currently
+	pointed characters from each tape.
+
+	:param currentState: beginning state
+	:return: next state
+	"""
 	global pointers
 	nextState = currentState
 	currentStateIndex = findStateUniqueIndex(currentState)
@@ -218,6 +264,11 @@ def runRule(currentState):
 	return nextState
 
 def computeResult():
+	"""
+	Count the number of returning characters for each tape.
+
+	:return: None
+	"""
 	if len(returnedCharacters) > 0:
 		for i in range(len(tapes)):
 			print "Tape", i
@@ -229,6 +280,11 @@ def computeResult():
 				print "\t", r, ":", counter
 
 def runMachine():
+	"""
+	Run the prepared Turing Machine.
+
+	:return: None
+	"""
 	currentState = initialState
 	while currentState != finalState:
 		DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
