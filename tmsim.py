@@ -58,7 +58,7 @@ MOVE_RIGHT = "R"
 #
 # ########## ########## ########## #
 
-def initialiseStepIndices():
+def prepareStepIndices(syntax):
 	global stepIndexCurrentState
 	global stepIndexMove
 	global stepIndexNextState
@@ -69,14 +69,6 @@ def initialiseStepIndices():
 	stepIndexNextState = -1
 	stepIndexRead = -1
 	stepIndexWrite = -1
-
-def prepareStepIndices(syntax):
-	global stepIndexCurrentState
-	global stepIndexMove
-	global stepIndexNextState
-	global stepIndexRead
-	global stepIndexWrite
-	initialiseStepIndices()
 	for i in range(len(syntax)):
 		step = syntax[i]
 		if step == STEP_CURRENT_STATE:
