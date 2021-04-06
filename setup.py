@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name='tmsim',
-	version='2.0.1',
+	version='2.0.1.1',
 	description='Turing Machine Simulator',
 	license='MIT',
 	author='Calvin M.T.',
