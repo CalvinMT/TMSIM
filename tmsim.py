@@ -271,13 +271,13 @@ def computeResult():
 	"""
 	if len(returnedCharacters) > 0:
 		for i in range(len(tapes)):
-			print "Tape", i
+			print("Tape", i)
 			for r in returnedCharacters:
 				counter = 0
 				for c in tapes[i]:
 					if c == r:
 						counter += 1
-				print "\t", r, ":", counter
+				print("\t", r, ":", counter)
 
 def runMachine():
 	"""
@@ -288,19 +288,20 @@ def runMachine():
 	currentState = initialState
 	while currentState != finalState:
 		DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
-		print tapes
+		print(tapes)
 		currentState = runRule(currentState)
 	DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
-	print tapes
-	print "Terminated"
+	print(tapes)
+	print("Terminated")
 
 def DEBUG(string):
 	if DEBUGGING:
-		print string
+		print(string)
 
 if __name__ == '__main__':
 	if len(sys.argv) < 3:
-		print "Usage: ", sys.argv[0], "[-d] machine_filename tape_filename"
+		print("Usage: ", sys.argv[0], "[-d] machine_filename tape_filename")
+		sys.exit()
 	else:
 		nbOptions = 0
 		if len(sys.argv) >= 4:
