@@ -61,6 +61,20 @@ MOVE_RIGHT = "R"
 #
 # ########## ########## ########## #
 
+stepIndexCurrentState = -1
+stepIndexMove = -1
+stepIndexNextState = -1
+stepIndexRead = -1
+stepIndexWrite = -1
+
+blankCharacter = ""
+returnedCharacters = []
+initialState = ""
+finalState = ""
+rules = []
+pointers = []
+tapes = []
+
 
 def prepareStepIndices(syntax):
     """
