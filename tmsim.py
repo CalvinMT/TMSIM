@@ -22,9 +22,6 @@ DEBUGGING = False
 
 OPTION_DEBUG = "-d"
 
-MACHINES_DIRECTORY = "machines/"
-TAPES_DIRECTORY = "tapes/"
-
 STEP_CURRENT_STATE = 'Q'
 STEP_MOVE = 'm'
 STEP_NEXT_STATE = 'N'
@@ -334,8 +331,8 @@ if __name__ == '__main__':
     parser.add_argument('tape')
     args = parser.parse_args()
     DEBUGGING = args.debug
-    machinePath = MACHINES_DIRECTORY + args.machine
-    tapePath = TAPES_DIRECTORY + args.tape
+    machinePath = args.machine
+    tapePath = args.tape
     prepareMachine(machinePath, tapePath)
     runMachine()
     computeResult()
