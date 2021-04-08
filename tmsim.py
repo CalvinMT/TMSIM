@@ -15,6 +15,7 @@
 """
 
 import sys
+import argparse
 import numpy as np
 
 DEBUGGING = False
@@ -327,17 +328,14 @@ def DEBUG(string):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print("Usage: ", sys.argv[0], "[-d] machine_filename tape_filename")
-        sys.exit()
-    else:
-        nbOptions = 0
-        if len(sys.argv) >= 4:
-            if sys.argv[1] == OPTION_DEBUG:
-                DEBUGGING = True
-                nbOptions += 1
-        machinePath = MACHINES_DIRECTORY + sys.argv[1 + nbOptions]
-        tapePath = TAPES_DIRECTORY + sys.argv[2 + nbOptions]
-        prepareMachine(machinePath, tapePath)
-        runMachine()
-        computeResult()
+    parser = argparse.ArgumentParser(description='Turing Machine Simulator')
+    parser.add_argument('-d', '--debug', action='store_true', help='Enable debug display')
+    parser.add_argument('machine')
+    parser.add_argument('tape')
+    args = parser.parse_args()
+    DEBUGGING = args.debug
+    machinePath = MACHINES_DIRECTORY + args.machine
+    tapePath = TAPES_DIRECTORY + args.tape
+    prepareMachine(machinePath, tapePath)
+    runMachine()
+    computeResult()
