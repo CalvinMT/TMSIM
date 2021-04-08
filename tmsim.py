@@ -16,7 +16,6 @@
 
 import sys
 import argparse
-import numpy as np
 
 DEBUGGING = False
 
@@ -33,6 +32,8 @@ WILDCARD_ALL_BUT_BLANK = '~'
 
 MOVE_LEFT = "L"
 MOVE_RIGHT = "R"
+
+COMMENT_CHARACTER = '#'
 
 
 # ########## ########## ########## #
@@ -127,11 +128,14 @@ def readRules(machineFile):
             continue
 
         line = line.rstrip('\n')
-        rules.append([])
-        rules[i].append([""])
+        if i == len(rules):
+            rules.append([])
+            rules[i].append([""])
         step = 0
         for c in line:
-            if c == ' ' and state == STATE_NORMAL:
+            if c == COMMENT_CHARACTER and state == STATE_NORMAL:
+                break
+            elif c == ' ' and state == STATE_NORMAL:
                 rules[i].append([""])
                 step += 1
             elif c == ' ' and state == STATE_PARENTHESIS:
@@ -151,7 +155,9 @@ def readRules(machineFile):
             else:
                 rules[i][step][p] = rules[i][step][p] + c
 
-        i += 1
+        if len(rules[i][0][0]) > 0:
+            i += 1
+
     return rules
 
 
@@ -171,6 +177,13 @@ def readTapes(tapeFile):
     return tapes, pointers
 
 
+def nextFileLine(machineFile, processEmptyLines=True):
+    line = machineFile.readline().rstrip('\n')
+    while (processEmptyLines and len(line) == 0) or (len(line) != 0 and line[0] == COMMENT_CHARACTER):
+        line = machineFile.readline().rstrip('\n')
+    return line
+
+
 def prepareMachine(machinePath, tapePath):
     """
     Read Turing Machine file and tape file to set and initialise blank character, returning characters, initial state,
@@ -188,12 +201,19 @@ def prepareMachine(machinePath, tapePath):
     global pointers
     global tapes
     machineFile = open(machinePath, 'r')
-    blankCharacter = machineFile.readline().rstrip('\n')
-    returnedCharacters = machineFile.readline().rstrip('\n')
-    initialState = machineFile.readline().rstrip('\n')
-    finalState = machineFile.readline().rstrip('\n')
-    syntax = np.loadtxt(machineFile, dtype='str', max_rows=1, delimiter=' ')
+
+    line = nextFileLine(machineFile)
+    blankCharacter = line[0]
+    line = nextFileLine(machineFile, False)
+    returnedCharacters = line
+    line = nextFileLine(machineFile)
+    initialState = line
+    line = nextFileLine(machineFile)
+    finalState = line
+    line = nextFileLine(machineFile)
+    syntax = line.replace(" ", "")
     rules = readRules(machineFile)
+
     machineFile.close()
 
     DEBUG("Blank character:\t" + blankCharacter)

@@ -14,6 +14,8 @@ Turing Machine file content:
 
 One rule per line.
 
+Comments start with a hash `#`. Hence, a hash cannot be part of a machine's lexicon nor used on tapes.
+
 ### Rule syntax
 The rule syntax lets the machine know how to read the rules. It must include the current state (Q) and the read (r) 
 lexicons for being unique sets to find the correct rule to follow.
