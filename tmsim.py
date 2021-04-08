@@ -121,12 +121,11 @@ def readRules(machineFile):
     STATE_PARENTHESIS = 1
     state = STATE_NORMAL
     p = 0
-    i = -1
+    i = 0
     for line in machineFile:
         if len(line) <= 1:
             continue
 
-        i += 1
         line = line.rstrip('\n')
         rules.append([])
         rules[i].append([""])
@@ -151,6 +150,8 @@ def readRules(machineFile):
                 p += 1
             else:
                 rules[i][step][p] = rules[i][step][p] + c
+
+        i += 1
     return rules
 
 
