@@ -71,6 +71,8 @@ move P2 and move P3 one cell to the left. Next state will be `q1`.
 ## Tapes
 One tape per line.
 
+Comments start with a hash `#`. Hence, a hash cannot be part of a machine's lexicon nor used on tapes.
+
 ## Debugging
 Use the option `-d` to display process information.
 

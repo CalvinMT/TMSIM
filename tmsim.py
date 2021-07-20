@@ -170,9 +170,24 @@ def readTapes(tapeFile):
     """
     pointers = []
     tapes = []
+    STATE_IDLE = 0
+    STATE_READING_TAPE = 1
+    state = STATE_IDLE
     for line in tapeFile:
-        pointers.append(0)
-        tapes.append(list(line.rstrip('\n')))
+        line = line.rstrip('\n')
+        tape = []
+        for c in line:
+            if c == COMMENT_CHARACTER:
+                state = STATE_IDLE
+                break
+            else:
+                if state != STATE_READING_TAPE:
+                    state == STATE_READING_TAPE
+                    pointers.append(0)
+                tape.append(c)
+        if len(tape) > 0:
+            tapes.append(tape)
+        state = STATE_IDLE
     tapeFile.close()
     return tapes, pointers
 
