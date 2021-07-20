@@ -18,6 +18,7 @@ import sys
 import argparse
 
 DEBUGGING = False
+VERBOSING = False
 
 OPTION_DEBUG = "-d"
 
@@ -348,7 +349,7 @@ def runMachine():
     currentState = initialState
     while currentState != finalState:
         DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
-        print(tapes)
+        VERBOSE(tapes)
         currentState = runRule(currentState)
     DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
     print(tapes)
@@ -360,15 +361,24 @@ def DEBUG(string):
         print(string)
 
 
+def VERBOSE(string):
+    if VERBOSING:
+        print(string)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Turing Machine Simulator')
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug display')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose display')
     parser.add_argument('machine')
     parser.add_argument('tape')
     args = parser.parse_args()
+
     DEBUGGING = args.debug
+    VERBOSING = args.verbose
     machinePath = args.machine
     tapePath = args.tape
+
     prepareMachine(machinePath, tapePath)
     runMachine()
     computeResult()

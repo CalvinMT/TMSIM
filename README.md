@@ -74,9 +74,9 @@ One tape per line.
 Comments start with a hash `#`. Hence, a hash cannot be part of a machine's lexicon nor used on tapes.
 
 ## Debugging
-Use the option `-d` to display process information.
+Use the verbose `-v` and the debug `-d` options to display process information.
 
-`./tmsim.py -d machine_name tape_name`
+`./tmsim.py -vd machine_name tape_name`
 
 ## Examples
 Turing Machine examples are located in `machines/examples` and their according tapes in `tapes/examples`.
