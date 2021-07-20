@@ -237,6 +237,7 @@ def prepareMachine(machinePath, tapePath):
     DEBUG("Initial state:\t\t" + initialState)
     DEBUG("Final state:\t\t" + finalState)
     DEBUG("Syntax:\t\t\t" + str(syntax))
+    DEBUG("")
 
     prepareStepIndices(syntax)
 
@@ -350,10 +351,13 @@ def runMachine():
     while currentState != finalState:
         DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
         VERBOSE(tapes)
+        if DEBUGGING and VERBOSING:
+            print()
         currentState = runRule(currentState)
     DEBUG(STEP_CURRENT_STATE + ": " + currentState + ";\tpointer: " + str(pointers))
+    if not VERBOSING:
+        DEBUG("")
     print(tapes)
-    print("Terminated")
 
 
 def DEBUG(string):
@@ -381,4 +385,6 @@ if __name__ == '__main__':
 
     prepareMachine(machinePath, tapePath)
     runMachine()
+    if len(returnedCharacters) > 0:
+        print()
     computeResult()
